@@ -1,0 +1,228 @@
+<div
+  id="register-row"
+  id="register"
+  class="row justify-content-center align-items-center mt-5 mb-5"
+>
+  <div id="register-column" class="col-md-6">
+    <div id="register-box" class="col-md-12">
+      <form
+        [formGroup]="registerForm"
+        (submit)="onSubmit()"
+        method="post"
+        class="form"
+        ngNativeValidate
+      >
+        <h3 class="text-center text-info">Register</h3>
+
+        <div class="form-group">
+          <label for="username" class="text-info">Username</label>
+          <input
+            formControlName="username"
+            type="text"
+            name="username"
+            id="username"
+            class="form-control"x
+            required
+          />
+          <small
+            class="validation-message"
+            *ngIf="
+              (username.touched || username.dirty) && username.errors?.required
+            "
+            >Username is required</small
+          >
+          <small
+            class="validation-message"
+            *ngIf="
+              (username.touched || username.dirty) && username.errors?.maxlength
+            "
+            >Username can have at most 30 characters</small
+          >
+          <app-error-message
+            inputType="name"
+            [errorObject]="errorObject"
+          ></app-error-message>
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="text-info">E-mail</label>
+          <input
+            formControlName="email"
+            name="email"
+            type="email"
+            id="email"
+            class="form-control"
+            required
+          />
+          <small
+            class="validation-message"
+            *ngIf="(email.touched || email.dirty) && email.errors?.required"
+            >E-mail is required</small
+          >
+          <small
+            class="validation-message"
+            *ngIf="
+              (email.touched || email.dirty) &&
+              !email.errors?.required &&
+              email.invalid
+            "
+            >E-mail format is invalid</small
+          >
+          <app-error-message
+            inputType="email"
+            [errorObject]="errorObject"
+          ></app-error-message>
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="text-info">Password</label>
+          <input
+            formControlName="password"
+            name="password"
+            type="password"
+            id="password"
+            class="form-control"
+            minlength="8"
+            required
+          />
+          <small
+            class="validation-message"
+            *ngIf="
+              (password.touched || password.dirty) && password.errors?.minlength
+            "
+            >Password can have at least 8 characters</small
+          >
+          <small
+            class="validation-message"
+            *ngIf="
+              (password.touched || password.dirty) && password.errors?.maxlength
+            "
+            >Password can have at most 30 characters</small
+          >
+          <small
+            class="validation-message"
+            *ngIf="
+              (password.touched || password.dirty) && password.errors?.required
+            "
+            >Password is required</small
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="repeatPassword" class="text-info">Repeat Password</label>
+          <input
+            formControlName="repeatPassword"
+            name="repeatPassword"
+            type="password"
+            id="repeatPassword"
+            class="form-control"
+            minlength="8"
+            required
+          />
+          <small
+            class="validation-message"
+            *ngIf="
+              (repeatPassword.touched || repeatPassword.dirty) &&
+              repeatPassword.errors?.minlength
+            "
+            >Password can have at least 8 characters</small
+          >
+          <small
+            class="validation-message"
+            *ngIf="
+              (repeatPassword.touched || repeatPassword.dirty) &&
+              repeatPassword.errors?.maxlength
+            "
+            >Password can have at most 30 characters</small
+          >
+          <small
+            class="validation-message"
+            *ngIf="
+              (repeatPassword.touched || repeatPassword.dirty) &&
+              repeatPassword.errors?.required
+            "
+            >Password is required</small
+          >
+          <small
+            class="validation-message"
+            *ngIf="
+              (repeatPassword.touched || repeatPassword.dirty) &&
+              registerForm.errors?.mismatch
+            "
+            >Passwords don't match</small
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="firstName" class="text-info">First name</label>
+          <input
+            formControlName="firstName"
+            type="text"
+            name="firstName"
+            id="firstName"
+            class="form-control"
+            required
+          />
+          <small
+            class="validation-message"
+            *ngIf="
+              (firstName.touched || firstName.dirty) &&
+              firstName.errors?.required
+            "
+            >First name is required</small
+          >
+          <small
+            class="validation-message"
+            *ngIf="
+              (firstName.touched || firstName.dirty) &&
+              firstName.errors?.maxlength
+            "
+            >First name can have at most 30 characters</small
+          >
+          <app-error-message
+            inputType="name"
+            [errorObject]="errorObject"
+          ></app-error-message>
+        </div>
+
+        <div class="form-group">
+          <label for="lastName" class="text-info">Last name</label>
+          <input
+            formControlName="lastName"
+            type="text"
+            name="lastName"
+            id="lastName"
+            class="form-control"
+            required
+          />
+          <small
+            class="validation-message"
+            *ngIf="
+              (lastName.touched || lastName.dirty) && lastName.errors?.required
+            "
+            >Last name is required</small
+          >
+          <small
+            class="validation-message"
+            *ngIf="
+              (lastName.touched || lastName.dirty) && lastName.errors?.maxlength
+            "
+            >Last name can have at most 30 characters</small
+          >
+          <app-error-message
+            inputType="name"
+            [errorObject]="errorObject"
+          ></app-error-message>
+        </div>
+
+        <button
+          [disabled]="!registerForm.valid"
+          type="submit"
+          class="w-100 btn btn-success mt-4"
+        >
+          Register
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

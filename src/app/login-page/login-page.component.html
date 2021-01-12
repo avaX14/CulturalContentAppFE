@@ -1,0 +1,59 @@
+<div id="login-row" class="row justify-content-center align-items-center mt-5">
+  <div id="login-column" class="col-md-6">
+    <div id="login-box" class="col-md-12">
+      <form
+        [formGroup]="loginForm"
+        (submit)="login()"
+        method="post"
+        class="form"
+        ngNativeValidate
+      >
+        <div class="form-group">
+          <label for="username" class="text-info">Username</label>
+          <input
+            formControlName="username"
+            name="username"
+            type="text"
+            id="username"
+            class="form-control"
+            required
+          />
+          <small
+            class="validation-message"
+            *ngIf="
+              (username.touched || username.dirty) && username.errors?.required
+            "
+            >Username is required</small
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="text-info">Password</label>
+          <input
+            formControlName="password"
+            name="password"
+            type="password"
+            id="password"
+            class="form-control"
+            required
+          />
+          <small
+            class="validation-message"
+            *ngIf="
+              (password.touched || password.dirty) && password.errors?.required
+            "
+            >Password is required</small
+          >
+        </div>
+
+        <button type="submit" class="btn btn-success mt-4 mb-2 w-100">
+          Login
+        </button>
+        <app-error-message
+          inputType="login"
+          [errorObject]="errorObject"
+        ></app-error-message>
+      </form>
+    </div>
+  </div>
+</div>
