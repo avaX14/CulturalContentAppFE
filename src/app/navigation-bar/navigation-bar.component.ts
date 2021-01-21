@@ -4,7 +4,7 @@ import { AuthService } from "../shared/services/auth.service";
 
 @Component({
   selector: "navigation-bar",
-  templateUrl: "./navigation-bar.component.html"
+  templateUrl: "./navigation-bar.component.html",
 })
 export class NavigationBarComponent {
   public constructor(

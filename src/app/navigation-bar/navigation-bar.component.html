@@ -22,7 +22,16 @@
             >Register</a
           >
         </li>
-
+        <li
+          class="nav-item ml-3"
+          *ngIf="authService.checkIfUserIsLogIn() && authService.isAdmin()"
+        >
+          <a
+            style="color: white; cursor: pointer"
+            [routerLink]="routingService.getPageUlr('create-offer')"
+            >Create Offer</a
+          >
+        </li>
         <li class="nav-item ml-3" *ngIf="authService.checkIfUserIsLogIn()">
           <a
             style="color: white; cursor: pointer"
