@@ -1,0 +1,17 @@
+<mat-form-field appearance="outline" class="example-full-width">
+  <input
+    matInput
+    formControlName="latitude"
+    type="text"
+    placeholder="Enter latitude"
+    name="latitude"
+    id="latitude"
+    class="form-control"
+    required
+  />
+  <mat-error
+    *ngIf="(latitude.touched || latitude.dirty) && latitude.errors?.required"
+  >
+    Please enter a value
+  </mat-error>
+</mat-form-field>

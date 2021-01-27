@@ -1,0 +1,218 @@
+<div>
+  <h4>Create new category</h4>
+  <mat-form-field class="example-full-width">
+    <mat-label>Category Name</mat-label>
+    <input
+      type="text"
+      [(ngModel)]="categoryName"
+      matInput
+      placeholder="Category Name"
+    />
+  </mat-form-field>
+  <button
+    class="ml-3"
+    mat-raised-button
+    type="button"
+    (click)="createCategory()"
+  >
+    Create
+  </button>
+</div>
+<div>
+  <h4>Create new category type</h4>
+  <mat-form-field appearance="fill">
+    <mat-label>Offer category</mat-label>
+    <mat-select (selectionChange)="selectCategory($event)">
+      <mat-option *ngFor="let categorie of categories" [value]="categorie.id">
+        {{ categorie.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="example-full-width ml-3">
+    <mat-label>Category Type</mat-label>
+    <input
+      type="text"
+      [(ngModel)]="categoryTypeName"
+      matInput
+      placeholder="Category Type"
+    />
+  </mat-form-field>
+  <button
+    class="ml-3"
+    mat-raised-button
+    type="button"
+    (click)="createCategoryType()"
+  >
+    Create
+  </button>
+
+  <div class="d-flex justify-content-between">
+    <div class="container">
+      <div class="header">
+        <h1>Categories</h1>
+      </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let category of categories">
+            <td>{{ category.id }}</td>
+            <td>{{ category.name }}</td>
+            <td>
+              <button
+                mat-raised-button
+                color="primary"
+                type="button"
+                (click)="onClickEdit(category.id)"
+              >
+                Edit
+              </button>
+            </td>
+
+            <td>
+              <button
+                mat-raised-button
+                color="warn"
+                type="button"
+                (click)="deleteCategory(category.id)"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+
+          <td>
+            <mat-select
+              class="page-size-select"
+              [(ngModel)]="pageSizeCategory"
+              id="sizeBtn"
+              (ngModelChange)="onPageSizeSelect(1)"
+            >
+              <mat-option value="5">5</mat-option>
+              <mat-option value="10">10</mat-option>
+              <mat-option value="15">15</mat-option>
+            </mat-select>
+          </td>
+          <td>
+            <button
+              mat-raised-button
+              type="button"
+              id="previousBtn"
+              *ngIf="pageNumCategory !== 0"
+              (click)="onClickPrevious(1)"
+            >
+              Previous
+            </button>
+            <button
+              mat-raised-button
+              *ngIf="
+                pageNumCategory * pageSizeCategory <
+                totalNumOfCategories - pageSizeCategory
+              "
+              type="button"
+              id="previousBtn"
+              (click)="onClickNext(1)"
+            >
+              Next
+            </button>
+          </td>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="container">
+      <div class="header">
+        <h1>Categories Types</h1>
+      </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let type of categoriesTypes">
+            <td>{{ type.id }}</td>
+            <td>{{ type.name }}</td>
+            <td>
+              <button
+                mat-raised-button
+                color="primary"
+                type="button"
+                (click)="onClickEdit(type.id)"
+              >
+                Edit
+              </button>
+            </td>
+
+            <td>
+              <button
+                mat-raised-button
+                color="warn"
+                type="button"
+                (click)="deleteCategory(category.id)"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+
+          <td>
+            <mat-select
+              class="page-size-select"
+              [(ngModel)]="pageSizeCategoryTypes"
+              id="sizeBtn"
+              (ngModelChange)="onPageSizeSelect(2)"
+            >
+              <mat-option value="5">5</mat-option>
+              <mat-option value="10">10</mat-option>
+              <mat-option value="15">15</mat-option>
+            </mat-select>
+          </td>
+          <td>
+            <button
+              mat-raised-button
+              type="button"
+              id="previousBtn"
+              *ngIf="pageNumCategoryTypes !== 0"
+              (click)="onClickPrevious(2)"
+            >
+              Previous
+            </button>
+            <button
+              mat-raised-button
+              *ngIf="
+                pageNumCategoryTypes * pageSizeCategoryTypes <
+                totalNumOfCategoriesTypes - pageSizeCategoryTypes
+              "
+              type="button"
+              id="previousBtn"
+              (click)="onClickNext(2)"
+            >
+              Next
+            </button>
+          </td>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>

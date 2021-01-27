@@ -1,19 +1,18 @@
-import { Injectable } from '@angular/core';
-import { HttpService } from './http.service';
-import { RoutingService } from './routing.service';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { HttpService } from "./http.service";
+import { RoutingService } from "./routing.service";
+import { BehaviorSubject } from "rxjs";
 
 const ENDPOINTS = {
-  LOGIN: 'auth/login',
-  REGISTER: 'api/users/public/register',
-  LOGOUT: 'api/auth/logout',
+  LOGIN: "auth/login",
+  REGISTER: "api/users/public/register",
+  LOGOUT: "api/auth/logout",
 };
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class AuthService {
-  public isUserLogIn = false;
   private _requestErrors = new BehaviorSubject<any>([]);
   public requestErrors$ = this._requestErrors.asObservable();
 
@@ -34,7 +33,7 @@ export class AuthService {
 
     if (token && user) {
       this.setAuthorizationHeader();
-      this.isUserLogIn = true;
+      localStorage.setItem("isUserLogIn", "true");
     }
   }
 
@@ -46,17 +45,18 @@ export class AuthService {
   }
 
   public createSession(user) {
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem("user", JSON.stringify(user));
     this.setAuthorizationHeader();
   }
 
   public checkIfUserIsLogIn() {
-    return this.isUserLogIn;
+    const isUserLogIn = localStorage.getItem("isUserLogIn");
+    return isUserLogIn == "true";
   }
 
   public destroySession() {
     localStorage.clear();
-    this._httpService.removeHeaders(['Authorization']);
+    this._httpService.removeHeaders(["Authorization"]);
   }
 
   public login(loginData) {
@@ -64,11 +64,11 @@ export class AuthService {
       .post(ENDPOINTS.LOGIN, loginData)
       .then((res) => {
         this.createSession(res.data);
-        this.isUserLogIn = true;
+        localStorage.setItem("isUserLogIn", "true");
         this.routingService.goHomePage();
       })
       .catch((err) => {
-        this._requestErrors.next('Username or password are invalid!');
+        this._requestErrors.next("Username or password are invalid!");
       });
   }
 
@@ -85,32 +85,42 @@ export class AuthService {
 
   public logout() {
     this._httpService.post(ENDPOINTS.LOGOUT).then((res) => {
-      this.isUserLogIn = false;
+      localStorage.setItem("isUserLogIn", "false");
       this.destroySession();
       this.routingService.goToLoginPage();
     });
   }
 
   public getToken() {
-    const user = localStorage.getItem('user');
+    const user = localStorage.getItem("user");
 
-    return user ? JSON.parse(user).access_token : undefined;
+    return user ? JSON.parse(user).token.accessToken : undefined;
   }
 
   public isAuthenticated() {
-    const user = JSON.parse(localStorage.getItem('user'));
-    return user && user.access_token ? true : false;
+    const user = JSON.parse(localStorage.getItem("user"));
+    return user && user.token.accessToken ? true : false;
   }
 
   public getUser() {
-    const user = localStorage.getItem('user');
+    const user = localStorage.getItem("user");
     return JSON.parse(user);
   }
 
+  public isAdmin() {
+    const user = JSON.parse(localStorage.getItem("user"));
+    return user?.authorities.includes("ROLE_ADMIN");
+  }
+
+  public getRoles() {
+    const user = JSON.parse(localStorage.getItem("user"));
+    return user.authorities;
+  }
+
   public updateUserInStorage(property) {
-    const user = localStorage.getItem('user');
+    const user = localStorage.getItem("user");
     let jsonUser = JSON.parse(user);
     jsonUser = { ...jsonUser, ...property };
-    localStorage.setItem('user', JSON.stringify(jsonUser));
+    localStorage.setItem("user", JSON.stringify(jsonUser));
   }
 }

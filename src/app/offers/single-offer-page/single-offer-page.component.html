@@ -1,0 +1,24 @@
+<div class="container mt-5">
+  <div class="offer-card" *ngIf="offer">
+    <h2>{{ offer.name }}</h2>
+    <p>
+      {{ offer.address.streetName
+      }}<span class="ml-2">{{ offer.address.streetNumber }}</span>
+    </p>
+    <p>
+      {{ offer.address.city }},
+      <span class="ml-2"> {{ offer.address.country }}</span>
+    </p>
+    <p>{{ offer.description }}</p>
+  </div>
+
+  <div class="offer-comments">
+    <app-offer-comments
+      (addCommentEvent)="addComment()"
+      (loadMoreCommentsEvent)="getComments()"
+      [comments]="comments"
+      [showMore]="showMore"
+      [(commentText)]="commentText"
+    ></app-offer-comments>
+  </div>
+</div>

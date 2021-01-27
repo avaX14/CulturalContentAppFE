@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import {
   CanActivate,
   ActivatedRouteSnapshot,
-  RouterStateSnapshot
+  RouterStateSnapshot,
 } from "@angular/router";
 import { AuthService } from "../services/auth.service";
 import { RoutingService } from "../services/routing.service";
@@ -19,11 +19,19 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      if (this._authService.checkIfUserIsLogIn()) {
+      if (this._authService.checkIfUserIsLogIn() && this.checkUserRole(route)) {
         return resolve(true);
       }
-      this._routingService.goToLoginPage();
+      this._routingService.goHomePage();
       return resolve(false);
     });
+  }
+
+  checkUserRole(route: ActivatedRouteSnapshot) {
+    const userRoles = this._authService.getRoles();
+    if (!userRoles.includes(route.data.role)) {
+      return false;
+    }
+    return true;
   }
 }

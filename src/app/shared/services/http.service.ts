@@ -1,20 +1,20 @@
-import axios from 'axios';
-import { RoutingService } from './routing.service';
-import { Injectable } from '@angular/core';
+import axios from "axios";
+import { RoutingService } from "./routing.service";
+import { Injectable } from "@angular/core";
 
-const baseUrl = 'http://localhost:8080';
+const baseUrl = "http://localhost:8080";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class HttpService {
-  public token = '';
+  public token = "";
 
   constructor(private _routingService: RoutingService) {}
 
-  public get(url) {
+  public get(url, params = {}) {
     return axios
-      .get(`${baseUrl}/${url}`, this.getToken())
+      .get(`${baseUrl}/${url}`, { ...this.getToken() })
       .then((res) => this.handleSuccessResponse(res))
       .catch((e) => this.handleErrorResponse(e));
   }
@@ -22,7 +22,7 @@ export class HttpService {
   public getToken() {
     return {
       headers: {
-        Authorization: this.token ? this.token : '',
+        Authorization: this.token ? this.token : "",
       },
     };
   }
