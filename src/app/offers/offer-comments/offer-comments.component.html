@@ -1,0 +1,34 @@
+<div class="mb-4">
+  <div class="new-comment">
+    <div>
+      <textarea
+        [(ngModel)]="commentText"
+        class="rounded"
+        name="new-comment"
+        id="new-comment"
+        cols="30"
+        rows="5"
+        maxlength="500"
+        required
+      ></textarea>
+    </div>
+    <div>
+      <button class="btn btn-success" (click)="addComment()">Comment</button>
+    </div>
+  </div>
+  <div class="mt-3">
+    <div
+      class="comment rounded p-2 mt-4 mb-4 radius-sm"
+      *ngFor="let comment of comments"
+    >
+      <label class="font-weight-bold">{{ comment.author.username }}</label>
+      <p>{{ comment.text }}</p>
+      <small class="comment-date">{{ comment.date | date: "short" }}</small>
+    </div>
+    <div *ngIf="showMore" class="text-center">
+      <button class="btn btn-primary" (click)="loadMoreComments()">
+        Load More
+      </button>
+    </div>
+  </div>
+</div>

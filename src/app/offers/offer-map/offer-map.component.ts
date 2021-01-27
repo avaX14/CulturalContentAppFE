@@ -28,14 +28,20 @@ export class OfferMapComponent implements OnInit, AfterViewInit {
   map: Leaflet.Map;
   private marker;
   allOffers = [];
+  layerGroup;
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.allOffers = this.offers;
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes["offers"]) {
-      this.allOffers = this.offers;
+      this.offers = changes["offers"].currentValue;
+      this.layerGroup && this.map.removeLayer(this.layerGroup);
+
+      this.createMarkers();
     }
     // changes.prop contains the old and the new value...
   }
@@ -56,17 +62,26 @@ export class OfferMapComponent implements OnInit, AfterViewInit {
     this.map.on("click", (e) => this.onMapClick(e));
 
     if (this.offers) {
-      this.offers.forEach((element) => {
-        Leaflet.marker([element.address.latitude, element.address.longitude])
-          .bindPopup(
-            `<h5><a href="">${element.name}</a></h5>
+      this.createMarkers();
+    }
+  }
+
+  createMarkers() {
+    this.layerGroup = Leaflet.layerGroup().addTo(this.map);
+
+    this.offers.forEach((element) => {
+      Leaflet.marker([element.address.latitude, element.address.longitude])
+        .bindPopup(
+          `
+          <a href="/offer/${element.id}">
+            <h5>${element.name}</h5>
             <p>${element.address.streetName} ${element.address.streetNumber}</p>
             <p>${element.address.city}</p>
-          `
-          )
-          .addTo(this.map);
-      });
-    }
+          </a>
+        `
+        )
+        .addTo(this.layerGroup);
+    });
   }
 
   onMapClick(e) {

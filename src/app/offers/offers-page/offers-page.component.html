@@ -1,0 +1,100 @@
+<div class="container">
+  <div class="header">
+    <h1>Offers</h1>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Street name</th>
+        <th>Street number</th>
+        <th>City</th>
+        <th>Country</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="table-row-offer" *ngFor="let offer of offers">
+        <td>{{ offer.id }}</td>
+        <td>{{ offer.name }}</td>
+        <td>{{ offer.address.streetName }}</td>
+        <td>{{ offer.address.streetNumber }}</td>
+        <td>{{ offer.address.city }}</td>
+        <td>{{ offer.address.country }}</td>
+        <td>{{ offer.address.latitude }}</td>
+        <td>{{ offer.address.longitude }}</td>
+
+        <td>
+          <button
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="onClickEdit(offer.id)"
+          >
+            Edit
+          </button>
+        </td>
+
+        <td>
+          <button
+            mat-raised-button
+            color="warn"
+            type="button"
+            class="delete-offer-btn"
+            (click)="onClickDelete(offer.id)"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>
+        <mat-select
+          class="page-size-select"
+          [(ngModel)]="pageSize"
+          id="sizeBtn"
+          (ngModelChange)="onPageSizeSelect()"
+        >
+          <mat-option value="5">5</mat-option>
+          <mat-option value="10">10</mat-option>
+          <mat-option value="15">15</mat-option>
+        </mat-select>
+      </td>
+      <td>
+        <button
+          mat-raised-button
+          *ngIf="pageNum !== 0"
+          type="button"
+          id="previousBtn"
+          (click)="onClickPrevious()"
+        >
+          Previous
+        </button>
+      </td>
+      <td>
+        <button
+          mat-raised-button
+          *ngIf="pageNum * pageSize < totalNumOfOffers - pageSize"
+          type="button"
+          id="previousBtn"
+          (click)="onClickNext()"
+        >
+          Next
+        </button>
+      </td>
+    </tfoot>
+  </table>
+</div>

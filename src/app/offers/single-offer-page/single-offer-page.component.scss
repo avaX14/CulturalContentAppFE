@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.offer-card {
+  padding: 20px 0;
+  text-align: center;
+  box-shadow: -3px 1px 11px 1px #888888;
+  width: 400px;
+  height: 450px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.offer-comments {
+  width: 100%;
+}
