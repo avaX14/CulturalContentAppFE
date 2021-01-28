@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ToastrService } from "ngx-toastr";
 import { AuthService } from "../shared/services/auth.service";
+import { CategoriesService } from "../shared/services/categories.service";
 import { OffersService } from "../shared/services/offers.service";
 
 @Component({
@@ -10,18 +11,34 @@ import { OffersService } from "../shared/services/offers.service";
 })
 export class HomePageComponent implements OnInit {
   offers = [];
+  categoryTypes = [];
   private pageNum: number = 0;
   private pageSize: number = 10;
   private isLastPage: boolean = false;
+  searchParam = "";
 
   constructor(
     private _offersService: OffersService,
+    private _categoriesService: CategoriesService,
     private toastr: ToastrService,
     private _authService: AuthService
   ) {}
 
   ngOnInit(): void {
     this.getOffers();
+    this.getAllCategoryTypes();
+  }
+
+  private getAllCategoryTypes() {
+    this._categoriesService.getAllCategoryTypes().then(({ data }) => {
+      this.categoryTypes = data.content;
+    });
+  }
+
+  filterByCategoryType({ value }) {
+    this._offersService.filterByCategoryType(value).then(({ data }) => {
+      this.offers = data;
+    });
   }
 
   private getOffers(): void {
@@ -50,5 +67,11 @@ export class HomePageComponent implements OnInit {
           );
         });
     }
+  }
+
+  search() {
+    this._offersService.searchOffers(this.searchParam).then(({ data }) => {
+      this.offers = data;
+    });
   }
 }
