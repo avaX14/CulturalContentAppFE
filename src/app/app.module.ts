@@ -25,6 +25,12 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatTableModule } from "@angular/material/table";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatSortModule } from "@angular/material/sort";
+import { MatSelectModule } from "@angular/material/select";
+import { MatButtonModule } from "@angular/material/button";
+import { CreateCategoryPageComponent } from './offers/create-category-page/create-category-page.component';
+import { OffersPageComponent } from './offers/offers-page/offers-page.component';
+import { SingleOfferPageComponent } from './offers/single-offer-page/single-offer-page.component';
+import { OfferCommentsComponent } from './offers/offer-comments/offer-comments.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +40,10 @@ import { MatSortModule } from "@angular/material/sort";
     OfferMapComponent,
     InputFieldComponent,
     HomePageComponent,
+    CreateCategoryPageComponent,
+    OffersPageComponent,
+    SingleOfferPageComponent,
+    OfferCommentsComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +59,8 @@ import { MatSortModule } from "@angular/material/sort";
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatSelectModule,
+    MatButtonModule,
   ],
   providers: [
     RoutingService,

@@ -17,6 +17,10 @@ export class RoutingService {
         return "login";
       case "create-offer":
         return "create-offer";
+      case "categories":
+        return "categories";
+      case "offers":
+        return "offers";
     }
   }
 

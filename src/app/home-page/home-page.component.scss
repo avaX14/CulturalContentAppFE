@@ -1,3 +1,14 @@
 .data-table {
   width: 80%;
 }
+
+.search-field {
+  width: 50%;
+}
+
+:host::ng-deep app-offer-map {
+  #map {
+    width: 100%;
+    height: 100vh;
+  }
+}

@@ -84,11 +84,9 @@ export class AuthService {
   }
 
   public logout() {
-    this._httpService.post(ENDPOINTS.LOGOUT).then((res) => {
       localStorage.setItem("isUserLogIn", "false");
       this.destroySession();
       this.routingService.goToLoginPage();
-    });
   }
 
   public getToken() {

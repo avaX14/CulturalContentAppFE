@@ -1,6 +1,8 @@
 <div id="login-row" class="row justify-content-center align-items-center mt-5">
   <div id="login-column" class="col-md-6">
     <div id="login-box" class="col-md-12">
+      <h2>Login</h2>
+
       <form
         [formGroup]="loginForm"
         (submit)="login()"
@@ -19,6 +21,7 @@
             required
           />
           <small
+            id="username-error"
             class="validation-message"
             *ngIf="
               (username.touched || username.dirty) && username.errors?.required
@@ -38,6 +41,7 @@
             required
           />
           <small
+            id="password-error"
             class="validation-message"
             *ngIf="
               (password.touched || password.dirty) && password.errors?.required
@@ -46,7 +50,12 @@
           >
         </div>
 
-        <button type="submit" class="btn btn-success mt-4 mb-2 w-100">
+        <button
+          id="login-btn"
+          type="submit"
+          class="btn btn-success mt-4 mb-2 w-100"
+          [disabled]="!loginForm.valid"
+        >
           Login
         </button>
         <app-error-message
